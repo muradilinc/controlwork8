@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {categories} from '../../constanst/categories.ts';
-import axiosApi from '../../axiosApi.ts';
+import {categories} from '../../constanst/categories';
+import axiosApi from '../../axiosApi';
 import {Quote} from '../../types';
 
 const AddQuotes: React.FC = () => {
@@ -42,7 +42,7 @@ const AddQuotes: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="my-12">
       <form onSubmit={createQuote}>
         <div>
           <label htmlFor="categories">Category</label>
@@ -83,10 +83,12 @@ const AddQuotes: React.FC = () => {
             rows={10}
           />
         </div>
-        <button
-          type="submit"
-          className="capitalize rounded font-bold text-[18px] text-white py-[3px] px-[5px] bg-green-600">create
-        </button>
+        <div className="mt-3">
+          <button
+            type="submit"
+            className="capitalize rounded font-bold text-[18px] text-white py-[3px] px-5 bg-green-600">create
+          </button>
+        </div>
       </form>
     </div>
   );
