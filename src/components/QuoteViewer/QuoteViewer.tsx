@@ -1,6 +1,8 @@
 import React from 'react';
 import {Quote} from '../../types';
 import {NotePencil, Trash} from '@phosphor-icons/react';
+import {useNavigate} from 'react-router-dom';
+import {EDIT_PAGE} from '../../constanst/routes';
 
 interface Props {
   quote: Quote;
@@ -9,6 +11,8 @@ interface Props {
 }
 
 const QuoteViewer: React.FC<Props> = ({quote, quoteId, removeQuote}) => {
+  const navigate = useNavigate();
+
   return (
     <div className="border border-black p-3 mb-5 rounded">
       <div className="flex justify-between">
@@ -16,7 +20,9 @@ const QuoteViewer: React.FC<Props> = ({quote, quoteId, removeQuote}) => {
           <p>{quote.quoteText}</p>
         </div>
         <div>
-          <button className="text-green-600 mr-2">
+          <button
+            onClick={() => navigate(`quotes/${quoteId}${EDIT_PAGE}`)}
+            className="text-green-600 mr-2">
             <NotePencil size={35}/>
           </button>
           <button
