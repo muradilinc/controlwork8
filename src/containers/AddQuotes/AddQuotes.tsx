@@ -44,28 +44,39 @@ const AddQuotes: React.FC = () => {
   return (
     <div>
       <form onSubmit={createQuote}>
-        <select name="categories" value={quote.categories} onChange={changeQuote} id="categories">
-          {
-            categories.map(category => (
-              <option key={category.id} value={category.id}>{category.title}</option>
-            ))
-          }
-        </select>
         <div>
-          <label htmlFor="author">Author:</label>
+          <label htmlFor="categories">Category</label>
+          <select
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            name="categories"
+            value={quote.categories}
+            onChange={changeQuote}
+            id="categories"
+          >
+            {
+              categories.map(category => (
+                <option key={category.id} value={category.id}>{category.title}</option>
+              ))
+            }
+          </select>
+        </div>
+        <div>
+          <label htmlFor="author">Author</label>
           <input
             value={quote.author}
             onChange={changeQuote}
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             name="author"
             type="text"
             id="author"
           />
         </div>
         <div>
-          <label htmlFor="quote-text">Quote text:</label>
+          <label htmlFor="quote-text">Quote text</label>
           <textarea
             value={quote.quoteText}
             onChange={changeQuote}
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             name="quoteText"
             id="quote-text"
             cols={30}
@@ -74,7 +85,8 @@ const AddQuotes: React.FC = () => {
         </div>
         <button
           type="submit"
-          className="capitalize rounded font-bold text-[18px] text-white py-[3px] px-[5px] bg-green-600">create</button>
+          className="capitalize rounded font-bold text-[18px] text-white py-[3px] px-[5px] bg-green-600">create
+        </button>
       </form>
     </div>
   );
