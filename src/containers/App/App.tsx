@@ -28,13 +28,26 @@ const App = () => {
     void getQuot();
   }, []);
 
+  const removeQuote = async (id: string) => {
+    try {
+      await axiosApi.delete(`quotes/${id}.json`);
+      void getQuot();
+      if (quotes.length < 2) {
+        setQuotes(prevState => {
+          return prevState.filter((quote => quote.idQuote !== id));
+        });
+      }
+    } catch (error) {
+      alert('Error! ' + error);
+    }
+  };
 
   return (
     <div>
       <Header/>
       <div className="container mx-auto">
         <Routes>
-          <Route path={HOME_PAGE} element={<HomePage quotes={quotes}/>}/>
+          <Route path={HOME_PAGE} element={<HomePage quotes={quotes} removeQuote={removeQuote}/>}/>
           <Route path={ADD_PAGE} element={<AddQuotes/>}/>
           <Route path={'*'} element={(<h1>404</h1>)}/>
         </Routes>
