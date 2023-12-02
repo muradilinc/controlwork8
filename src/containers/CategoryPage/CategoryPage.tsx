@@ -1,36 +1,45 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import QuoteViewer from '../../components/QuoteViewer/QuoteViewer';
 import {QuoteApi} from '../../types';
-import {useLocation} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
+import {getContent} from '../../utils/getContent';
+import Preloader from '../../components/Preloader/Preloader';
 
 interface Props {
-  quotes: QuoteApi[];
   removeQuote: (id: string) => void;
 }
 
-const CategoryPage: React.FC<Props> = ({quotes, removeQuote}) => {
-  const location = useLocation();
-  const category = location.pathname.split('/')[2];
-  const filteredQuotes = quotes.filter((quote) => quote.quote.category === category);
+const CategoryPage: React.FC<Props> = ({removeQuote}) => {
+  const {category} = useParams();
+  const [filteredQuotes, setFilteredQuotes] = useState<QuoteApi[]>([]);
+  const [loader, setLoader] = useState(false);
 
-  console.log(filteredQuotes);
-
+  useEffect(() => {
+    void getContent(`quotes.json?orderBy="category"&equalTo="${category}"`, setFilteredQuotes, setLoader);
+  }, [category]);
 
   return (
     <>
-      <h4 className="text-2xl capitalize mb-3">{category}</h4>
       {
-        filteredQuotes.length !== 0 ?
-          filteredQuotes.map(quote => (
-            <QuoteViewer
-              key={quote.idQuote}
-              quote={quote.quote}
-              quoteId={quote.idQuote}
-              removeQuote={removeQuote}
-            />
-          ))
+        loader ?
+          <Preloader/>
           :
-          <h4>Empty Quotes!</h4>
+          <>
+            <h4 className="text-2xl capitalize mb-3">{category}</h4>
+            {
+              filteredQuotes.length !== 0 ?
+                filteredQuotes.map(quote => (
+                  <QuoteViewer
+                    key={quote.idQuote}
+                    quote={quote.quote}
+                    quoteId={quote.idQuote}
+                    removeQuote={removeQuote}
+                  />
+                ))
+                :
+                <h4>Empty Quotes!</h4>
+            }
+          </>
       }
     </>
   );

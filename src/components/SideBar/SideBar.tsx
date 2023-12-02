@@ -6,10 +6,10 @@ const SideBar = () => {
   return (
     <div>
       <ul>
-        <li><Link to={HOME_PAGE}>All</Link></li>
+        <li className="text-2xl"><Link to={HOME_PAGE}>All</Link></li>
         {
           categories.map((category) => (
-            <li key={category.id}><Link to={`/quotes/${category.id}`}>{category.title}</Link></li>
+            <li className="text-2xl" key={category.id}><Link to={`/quotes/${category.id}`}>{category.title}</Link></li>
           ))
         }
       </ul>

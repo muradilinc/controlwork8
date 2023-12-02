@@ -3,13 +3,15 @@ import {QuoteApi} from '../../types';
 import QuoteViewer from '../../components/QuoteViewer/QuoteViewer';
 import SideBar from '../../components/SideBar/SideBar';
 import {Outlet, useLocation} from 'react-router-dom';
+import Preloader from '../../components/Preloader/Preloader';
 
 interface Props {
   quotes: QuoteApi[];
   removeQuote: (id: string) => void;
+  loader: boolean;
 }
 
-const HomePage: React.FC<Props> = ({quotes, removeQuote,}) => {
+const HomePage: React.FC<Props> = ({quotes, removeQuote, loader}) => {
   const location = useLocation();
   const category = location.pathname.split('/')[2];
   const page = location.pathname.includes(category);
@@ -21,22 +23,25 @@ const HomePage: React.FC<Props> = ({quotes, removeQuote,}) => {
       </div>
       <div className="col-span-2">
         {
-          !page ?
-            <>
-              <h4 className="text-2xl capitalize mb-3">All</h4>
-              {
-                quotes.map(quote => (
-                  <QuoteViewer
-                    key={quote.idQuote}
-                    quote={quote.quote}
-                    quoteId={quote.idQuote}
-                    removeQuote={removeQuote}
-                  />
-                ))
-              }
-            </>
+          loader ?
+            <Preloader/>
             :
-            <Outlet/>
+            !page ?
+              <>
+                <h4 className="text-2xl capitalize mb-3">All</h4>
+                {
+                  quotes.map(quote => (
+                    <QuoteViewer
+                      key={quote.idQuote}
+                      quote={quote.quote}
+                      quoteId={quote.idQuote}
+                      removeQuote={removeQuote}
+                    />
+                  ))
+                }
+              </>
+              :
+              <Outlet/>
         }
       </div>
     </div>
