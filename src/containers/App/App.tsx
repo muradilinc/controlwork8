@@ -7,23 +7,10 @@ import AddQuotes from '../AddQuotes/AddQuotes';
 import axiosApi from '../../axiosApi';
 import {QuoteApi} from '../../types';
 import {getContent} from '../../utils/getContent';
+import CategoryPage from '../CategoryPage/CategoryPage';
 
 const App = () => {
   const [quotes, setQuotes] = useState<QuoteApi[]>([]);
-
-  // const getQuot = async (): Promise<void> => {
-  //   try {
-  //     const response = await axiosApi.get('quotes.json');
-  //     setQuotes(() => {
-  //       return Object.keys(response.data).map((quote) => ({
-  //         idQuote: quote,
-  //         quote: response.data[quote]
-  //       }));
-  //     });
-  //   } catch (error) {
-  //     alert('Error! ' + error);
-  //   }
-  // };
 
   useEffect(() => {
     void getContent('quotes.json', setQuotes);
@@ -52,7 +39,11 @@ const App = () => {
       <Header/>
       <div className="container mx-auto">
         <Routes>
-          <Route path={HOME_PAGE} element={<HomePage quotes={quotes} removeQuote={removeQuote}/>}/>
+          <Route path={HOME_PAGE} element={<HomePage quotes={quotes} removeQuote={removeQuote}/>}>
+            <Route path={`/quotes/:category`} element={(
+              <CategoryPage quotes={quotes} removeQuote={removeQuote}/>
+            )}/>
+          </Route>
           <Route path={ADD_PAGE} element={<AddQuotes/>}/>
           <Route path={`/quotes/:id/edit`} element={<AddQuotes updateData={updateData}/>}/>
           <Route path={'*'} element={(<h1>404</h1>)}/>
