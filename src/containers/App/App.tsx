@@ -1,14 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import Header from '../../components/Header/Header.tsx';
 import {Route, Routes} from 'react-router-dom';
 import {ADD_PAGE, HOME_PAGE} from '../../constanst/routes.ts';
 import HomePage from '../HomePage/HomePage.tsx';
-import {Quote} from '../../types';
-import axiosApi from '../../axiosApi.ts';
+// import {Quote} from '../../types';
+// import axiosApi from '../../axiosApi.ts';
 import AddQuotes from '../AddQuotes/AddQuotes.tsx';
 
 const App = () => {
-  const [quotes, setQuotes] = useState<Quote[]>([]);
+  // const [quotes, setQuotes] = useState<Quote[]>([]);
 
   useEffect(() => {
     // try {
